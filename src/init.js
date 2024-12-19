@@ -1,4 +1,4 @@
-import { RenderingEnum } from "./utils/shared/index.js";
+import { RenderingEnum } from "./utils/index.js";
 import { createRoutes, PathToPageEnum } from "./routes/index.js";
 import { render } from "./utils/render.js";
 import { clickHandler, submitHandler } from "./utils/index.js";

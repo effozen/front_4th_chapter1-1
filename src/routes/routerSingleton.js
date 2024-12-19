@@ -1,5 +1,6 @@
 // routerSingleton.js
 import { PagesNameEnum, PageToPathEnum } from "./shared/enum.js";
+import { checkLogin } from "../utils/index.js";
 
 let instance = null;
 
@@ -28,6 +29,10 @@ const initializeRoutes = () => {
   };
 
   const navigateTo = (path) => {
+    if (path === PageToPathEnum[PagesNameEnum.PROFILE] && !checkLogin()) {
+      navigateTo(PageToPathEnum[PagesNameEnum.LOGIN]);
+      return;
+    }
     window.history.pushState({}, path, path);
     handleRoute(path);
   };

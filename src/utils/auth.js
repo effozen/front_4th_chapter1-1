@@ -1,4 +1,4 @@
-import { LoginEnum } from "./shared/loginEnum.js";
+import { LoginEnum } from "./shared/index.js";
 import { getItem, removeItem, setItem } from "../store/localStorage.js";
 import {
   createRoutes,
