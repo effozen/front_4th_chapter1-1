@@ -19,3 +19,18 @@ export const PathToPageEnum = {
   "/profile": PagesNameEnum.PROFILE,
   "/error": PagesNameEnum.ERROR,
 };
+
+export const PageToHashPathEnum = {
+  [PagesNameEnum.HOME]: "/",
+  [PagesNameEnum.LOGIN]: "/login",
+  [PagesNameEnum.PROFILE]: "/profile",
+  [PagesNameEnum.ERROR]: "/error",
+};
+
+// shared/enum.js
+export const HashPathToPageEnum = {
+  "/": PagesNameEnum.HOME,
+  "/login": PagesNameEnum.LOGIN,
+  "/profile": PagesNameEnum.PROFILE,
+  "/error": PagesNameEnum.ERROR,
+};

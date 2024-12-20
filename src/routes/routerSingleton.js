@@ -62,9 +62,6 @@ const initializeRoutes = () => {
     navigateTo(window.location.pathname);
   };
 
-  window.addEventListener("popstate", handlePopState);
-  window.addEventListener("load", initialize);
-
   return {
     routes,
     addRoute,
@@ -72,11 +69,12 @@ const initializeRoutes = () => {
     handleRoute,
     handlePopState,
     render,
+    initialize,
   };
 };
 
 // 진정한 싱글톤 객체
-const RoutesSingleton = {
+export const RoutesSingleton = {
   getInstance: () => {
     if (!instance) {
       instance = initializeRoutes();
@@ -84,5 +82,3 @@ const RoutesSingleton = {
     return instance;
   },
 };
-
-export { RoutesSingleton };
