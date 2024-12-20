@@ -9,7 +9,7 @@ export const Navbar = () => {
   return `
       <nav class="bg-white shadow-md p-2 sticky top-14">
         <ul class="flex justify-around">
-          <li><a href="/" class="text-blue-600">홈</a></li>
+          <li><a href="/" class="text-blue-600 font-bold">홈</a></li>
            ${user ? profile : ""}
           ${user ? logoutButton : loginButton}
         </ul>

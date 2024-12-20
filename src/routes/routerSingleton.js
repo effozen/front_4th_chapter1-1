@@ -24,9 +24,13 @@ const initializeRoutes = () => {
   };
 
   const navigateTo = (path) => {
-    // 보호된 라우트에 대한 로그인 확인
     if (path === PageToPathEnum[PagesNameEnum.PROFILE] && !checkLogin()) {
       navigateTo(PageToPathEnum[PagesNameEnum.LOGIN]);
+      return;
+    }
+
+    if (path === PageToPathEnum[PagesNameEnum.LOGIN] && checkLogin()) {
+      navigateTo(PageToPathEnum[PagesNameEnum.HOME]);
       return;
     }
 
