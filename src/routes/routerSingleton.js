@@ -1,4 +1,3 @@
-// routerSingleton.js
 import { PagesNameEnum, PageToPathEnum } from "./shared/enum.js";
 import { checkLogin } from "../utils/index.js";
 
@@ -24,18 +23,28 @@ const initializeRoutes = () => {
     navigateTo(PageToPathEnum[PagesNameEnum.ERROR]);
   };
 
-  const handlePopState = () => {
-    handleRoute(window.location.pathname);
-  };
-
   const navigateTo = (path) => {
+    // 보호된 라우트에 대한 로그인 확인
     if (path === PageToPathEnum[PagesNameEnum.PROFILE] && !checkLogin()) {
       navigateTo(PageToPathEnum[PagesNameEnum.LOGIN]);
       return;
     }
-    window.history.pushState({}, path, path);
+
+    window.history.pushState({}, path, window.location.origin + path);
     handleRoute(path);
   };
+
+  const handlePopState = () => {
+    navigateTo(window.location.pathname); // popstate에서도 navigateTo 사용
+  };
+
+  // 초기 로드 시 현재 경로로 navigate
+  const initialize = () => {
+    navigateTo(window.location.pathname);
+  };
+
+  window.addEventListener("popstate", handlePopState);
+  window.addEventListener("load", initialize);
 
   return {
     routes,

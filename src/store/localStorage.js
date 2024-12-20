@@ -9,8 +9,8 @@ export const setItem = (key, value) => {
 export const getItem = (key) => {
   // TODO : 입력 검증 로직 나중에 추가하기
   if (typeof key !== "string") throw new Error("🚧 : 입력값이 잘못되었습니다.");
-
-  return window.localStorage.getItem(key);
+  const item = localStorage.getItem(key);
+  return item ? JSON.parse(item) : null;
 };
 
 export const removeItem = (key) => {

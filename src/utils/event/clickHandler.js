@@ -1,4 +1,8 @@
-import { createRoutes, PagesNameEnum, PageToPathEnum } from "../../routes";
+import {
+  createRoutes,
+  PagesNameEnum,
+  PageToPathEnum,
+} from "../../routes/index.js";
 import { checkLogin, logout } from "../auth.js";
 
 export const clickHandler = (event) => {
@@ -7,22 +11,24 @@ export const clickHandler = (event) => {
   if (event.target.tagName === "A") {
     event.preventDefault();
 
-    if (
-      event.target.getAttribute("href") ===
-        PageToPathEnum[PagesNameEnum.PROFILE] &&
-      !checkLogin()
-    ) {
-      navigateTo("/login");
+    const href = event.target.getAttribute("href");
+    const id = event.target.getAttribute("id");
+
+    if (href === PageToPathEnum[PagesNameEnum.PROFILE] && !checkLogin()) {
+      navigateTo(PageToPathEnum[PagesNameEnum.LOGIN]);
+      return;
     }
 
-    if (event.target.getAttribute("id") === "logout-button") {
+    if (id === "logout") {
       logout();
+      return;
     }
 
-    if (event.target.getAttribute("id") === "login-button") {
-      navigateTo("/login");
+    if (id === "login") {
+      navigateTo(PageToPathEnum[PagesNameEnum.LOGIN]);
+      return;
     }
 
-    navigateTo(event.target.getAttribute("href"));
+    navigateTo(href);
   }
 };
