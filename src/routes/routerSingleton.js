@@ -11,6 +11,21 @@ const initializeRoutes = () => {
     routes[path] = handler;
   };
 
+  const render = (htmlFunction) => {
+    try {
+      const root = document.getElementById("root");
+      const html = htmlFunction();
+      if (root) {
+        root.innerHTML = html;
+      } else {
+        document.body.innerHTML = html;
+      }
+    } catch (error) {
+      console.error("Render Error:", error);
+      navigateTo(PageToPathEnum[PagesNameEnum.ERROR]);
+    }
+  };
+
   const handleRoute = (path) => {
     if (path === "#") return;
 
@@ -56,6 +71,7 @@ const initializeRoutes = () => {
     navigateTo,
     handleRoute,
     handlePopState,
+    render,
   };
 };
 

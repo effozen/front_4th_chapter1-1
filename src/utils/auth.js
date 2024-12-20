@@ -20,7 +20,7 @@ export const login = (username, passwd) => {
 export const logout = () => {
   const { navigateTo } = createRoutes();
   removeItem(LoginEnum.LOGIN_TOKEN); // "user" 키 제거
-  navigateTo(PageToPathEnum[PagesNameEnum.HOME]);
+  navigateTo(PageToPathEnum[PagesNameEnum.LOGIN]);
 };
 
 export const checkLogin = () => {
