@@ -1,6 +1,5 @@
-// hashRouterSingleton.js
-import { PagesNameEnum, PageToHashPathEnum } from "./shared/enum.js";
-import { checkLogin } from "../utils/index.js";
+import { PagesNameEnum, PageToPathEnum } from "./shared/enum.js";
+import { checkLogin } from "../utils/auth.js";
 
 let instance = null;
 
@@ -23,7 +22,7 @@ const initializeHashRoutes = () => {
       }
     } catch (error) {
       console.error("Render Error:", error);
-      navigateTo(PageToHashPathEnum[PagesNameEnum.ERROR]);
+      navigateTo(PageToPathEnum[PagesNameEnum.ERROR]);
     }
   };
 
@@ -31,7 +30,19 @@ const initializeHashRoutes = () => {
     const path = hash.replace(/^#/, ""); // '#' 제거
 
     if (path === "") {
-      navigateTo(PageToHashPathEnum[PagesNameEnum.HOME]);
+      navigateTo(PageToPathEnum[PagesNameEnum.HOME]);
+      return;
+    }
+
+    // 로그인 필요 경로인지 확인
+    if (path === PageToPathEnum[PagesNameEnum.PROFILE] && !checkLogin()) {
+      navigateTo(PageToPathEnum[PagesNameEnum.LOGIN]);
+      return;
+    }
+
+    // 로그인 상태일 때 로그인 페이지로 접근 시 홈으로 이동
+    if (path === PageToPathEnum[PagesNameEnum.LOGIN] && checkLogin()) {
+      navigateTo(PageToPathEnum[PagesNameEnum.HOME]);
       return;
     }
 
@@ -41,17 +52,19 @@ const initializeHashRoutes = () => {
       return;
     }
     // 에러 처리
-    navigateTo(PageToHashPathEnum[PagesNameEnum.ERROR]);
+    navigateTo(PageToPathEnum[PagesNameEnum.ERROR]);
   };
 
   const navigateTo = (path) => {
-    if (path === PageToHashPathEnum[PagesNameEnum.PROFILE] && !checkLogin()) {
-      navigateTo(PageToHashPathEnum[PagesNameEnum.LOGIN]);
+    if (path === PageToPathEnum[PagesNameEnum.PROFILE] && !checkLogin()) {
+      window.location.hash = PageToPathEnum[PagesNameEnum.LOGIN];
+      handleRoute(`#${PageToPathEnum[PagesNameEnum.LOGIN]}`);
       return;
     }
 
-    if (path === PageToHashPathEnum[PagesNameEnum.LOGIN] && checkLogin()) {
-      navigateTo(PageToHashPathEnum[PagesNameEnum.HOME]);
+    if (path === PageToPathEnum[PagesNameEnum.LOGIN] && checkLogin()) {
+      window.location.hash = PageToPathEnum[PagesNameEnum.HOME];
+      handleRoute(`#${PageToPathEnum[PagesNameEnum.HOME]}`);
       return;
     }
 

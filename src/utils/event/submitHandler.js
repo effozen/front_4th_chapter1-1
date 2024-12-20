@@ -2,7 +2,7 @@ import { login } from "../auth.js";
 import { LoginEnum } from "../index.js";
 import { setItem } from "../../store/localStorage.js";
 
-export const submitHandler = (event) => {
+export const submitHandler = (event, type = "popstate") => {
   event.preventDefault();
 
   const form = event.target;
@@ -13,7 +13,7 @@ export const submitHandler = (event) => {
       passwd: formData.get(LoginEnum.PASSWORD),
     };
 
-    login(userInfo.username, userInfo.passwd);
+    login(userInfo.username, userInfo.passwd, type);
   }
 
   if (form.getAttribute("id") === "profile-form") {

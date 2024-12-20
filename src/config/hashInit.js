@@ -1,13 +1,13 @@
 import { clickHandler, submitHandler } from "../utils/index.js";
-import { routerInit } from "./routerInit.js";
+import { hashRouterInit } from "./hashRouterInit.js";
 
-export const init = () => {
-  routerInit();
+export const hashInit = () => {
+  hashRouterInit();
 
   window.addEventListener("click", (event) => {
-    clickHandler(event, "popstate");
+    clickHandler(event, "hash");
   });
   window.addEventListener("submit", (event) => {
-    submitHandler(event, "popstate");
+    submitHandler(event, "hash");
   });
 };

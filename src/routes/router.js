@@ -1,3 +1,4 @@
+// router.js
 import { RoutesSingleton } from "./routerSingleton.js";
 import { HashRoutesSingleton } from "./hashRouterSingleton.js";
 
@@ -29,4 +30,11 @@ export const createHashRoutes = () => {
   });
 
   return { handleHashChange, initialize, ...instance };
+};
+
+export const generalRoutes = (type) => {
+  if (type === "hash") {
+    return createHashRoutes();
+  }
+  return createRoutes();
 };

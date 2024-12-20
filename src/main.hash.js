@@ -1,1 +1,3 @@
-import "./main.js";
+import { hashInit } from "./config/hashInit.js";
+
+hashInit();

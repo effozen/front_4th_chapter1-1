@@ -1,12 +1,12 @@
 import {
-  createRoutes,
+  generalRoutes,
   PagesNameEnum,
   PageToPathEnum,
 } from "../../routes/index.js";
 import { checkLogin, logout } from "../auth.js";
 
-export const clickHandler = (event) => {
-  const { navigateTo } = createRoutes();
+export const clickHandler = (event, type) => {
+  const { navigateTo } = generalRoutes(type);
 
   if (event.target.tagName === "A") {
     event.preventDefault();
@@ -20,7 +20,7 @@ export const clickHandler = (event) => {
     }
 
     if (id === "logout") {
-      logout();
+      logout(type);
       return;
     }
 

@@ -1,14 +1,14 @@
 // auth.js
-import { LoginEnum } from "./shared/loginEnum.js";
+import { LoginEnum } from "./shared/index.js";
 import { getItem, removeItem, setItem } from "../store/localStorage.js";
 import {
-  createRoutes,
+  generalRoutes,
   PagesNameEnum,
   PageToPathEnum,
 } from "../routes/index.js";
 
-export const login = (username, passwd) => {
-  const { navigateTo } = createRoutes();
+export const login = (username, passwd, type = "popstate") => {
+  const { navigateTo } = generalRoutes(type);
 
   if (typeof username === "string" && typeof passwd === "string") {
     // "user" 키로 사용자 정보 저장
@@ -17,8 +17,8 @@ export const login = (username, passwd) => {
   }
 };
 
-export const logout = () => {
-  const { navigateTo } = createRoutes();
+export const logout = (type = "popstate") => {
+  const { navigateTo } = generalRoutes(type);
   removeItem(LoginEnum.LOGIN_TOKEN); // "user" 키 제거
   navigateTo(PageToPathEnum[PagesNameEnum.LOGIN]);
 };
